@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<declare-styleable name="TitleLine">
+		<attr name="align"
+			format="enum">
+			<enum name="left"
+				value="0"/>
+			<enum name="mid"
+				value="1"/>
+		</attr>
+		<attr name="title"
+			format="string"/>
+		<attr name="content"
+			format="string"/>
+	</declare-styleable>
+	<color name="title_line_gray">#6a6a6a</color>
+	<dimen name="title_line_title_size">12sp</dimen>
+	<dimen name="title_line_content_size">18sp</dimen>
+</resources>

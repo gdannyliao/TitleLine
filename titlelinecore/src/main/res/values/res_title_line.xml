@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<declare-styleable name="TitleLine">
-		<attr name="align"
+		<attr name="titleLineAlign"
 			format="enum">
 			<enum name="left"
 				value="0"/>
 			<enum name="mid"
 				value="1"/>
 		</attr>
-		<attr name="title"
+		<attr name="titleLineTitle"
 			format="string"/>
-		<attr name="content"
+		<attr name="titleLineContent"
 			format="string"/>
 	</declare-styleable>
 	<color name="title_line_gray">#6a6a6a</color>

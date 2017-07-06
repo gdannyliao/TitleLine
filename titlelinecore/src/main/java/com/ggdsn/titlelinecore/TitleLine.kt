@@ -36,16 +36,18 @@ class TitleLine @JvmOverloads constructor(
     }
 
     init {
+        val density = context.resources.displayMetrics.density
+        setPadding(0, (8 * density).toInt(), 0, (8 * density).toInt())
         text1.id = 1
         text2.id = 2
         val a = context.obtainStyledAttributes(attrs, R.styleable.TitleLine)
-        align = Align.fromInt(a.getInt(R.styleable.TitleLine_align, 0))
-        text1.text = a.getString(R.styleable.TitleLine_title)
-        text2.text = a.getString(R.styleable.TitleLine_content)
+        align = Align.fromInt(a.getInt(R.styleable.TitleLine_titleLineAlign, 0))
+        text1.text = a.getString(R.styleable.TitleLine_titleLineTitle)
+        text2.text = a.getString(R.styleable.TitleLine_titleLineContent)
         a.recycle()
 
         text1.setTextColor(ContextCompat.getColor(context, R.color.title_line_gray))
-        text2.setTextColor(ContextCompat.getColor(context, if (text1.text.isNullOrEmpty()) R.color.title_line_gray else android.R.color.white))
+        adjustText2Color()
         //由于getDimension的返回已经是PX了，如果用默认的方法，会再次放大。所以这里用COMPLEX_UNIT_PX
         text1.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.title_line_title_size))
         text2.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.title_line_content_size))
@@ -58,7 +60,26 @@ class TitleLine @JvmOverloads constructor(
         addView(text1, t1Lp)
         addView(text2, t2Lp)
 
+        adjustAlign()
+    }
+
+    fun setTitle(title: CharSequence) {
+        text1.text = title
+        adjustText2Color()
+    }
+
+    fun setContent(content: CharSequence) {
+        text2.text = content
+    }
+
+    fun setAlign(align: Align) {
+        this.align = align
+        adjustAlign()
+    }
+
+    private fun adjustAlign() {
         val gravity: Int
+
         when (align) {
             Align.Left -> {
                 gravity = Gravity.START and Gravity.CENTER_VERTICAL
@@ -71,4 +92,7 @@ class TitleLine @JvmOverloads constructor(
         text2.gravity = gravity
     }
 
+    private fun adjustText2Color() {
+        text2.setTextColor(ContextCompat.getColor(context, if (text1.text.isNullOrEmpty()) R.color.title_line_gray else android.R.color.white))
+    }
 }
